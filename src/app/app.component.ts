@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
   public selectedTime: any;
 
 
-  public lat: number = 51.678418;
-  public lng: number = 7.809007;
+  public lat: number = 44.9778;
+  public lng: number = -93.2650;
 
   constructor(public metroService: MetroService)
   {

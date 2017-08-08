@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AgmCoreModule } from '@agm/core';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   imports:[
     BrowserModule,
@@ -22,7 +24,7 @@ import { AgmCoreModule } from '@agm/core';
     DropdownModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA9nWeA0N3bP5Wo9LEKVYludyDQ9tHvzSI'
+      apiKey: environment.API_KEY
     })
   ],
   declarations: [

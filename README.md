@@ -1,6 +1,9 @@
 # Metro Bus Tracker
 url here
 
+### Mini Demo GIF
+http://i.imgur.com/sjkN22q.gifv
+
 #  App Information
 I used angular-cli-primeng as a starter for this build and then upgraded it to angular 4. Check out the original repo here:
 https://github.com/eladcandroid/angular-cli-primeng

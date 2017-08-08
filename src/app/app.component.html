@@ -2,22 +2,22 @@
   <h1>Metro Transit Tracker</h1>
    <div class="dropdown-container row">
     <div class="col-sm-6">
-      <h3>Route</h3>
+      <h3>1. Route</h3>
       <p-dropdown class="dropdown" id="tSelectRouteDropdown" [options]="routeList" [(ngModel)]="selectedRoute" [filter]="true" (onChange)="onRouteSelected($event)" [style]="{'width':'200px'}" placeholder="Select a Route"></p-dropdown>
     </div>
-    <div class="col-md-6">
-      <h3>Directions</h3>
-      <p-dropdown class="dropdown" id="tSelectDirectionDropdown" [options]="directionList" [(ngModel)]="selectedDirection" [filter]="true" (onChange)="onDirectionSelected($event)" [style]="{'width':'200px'}" placeholder="Select a Route"></p-dropdown>
+    <div class="col-md-6" *ngIf="selectedRoute">
+      <h3>2. Direction</h3>
+      <p-dropdown class="dropdown" id="tSelectDirectionDropdown" [options]="directionList" [(ngModel)]="selectedDirection" [filter]="true" (onChange)="onDirectionSelected($event)" [style]="{'width':'200px'}" placeholder="Select a Direction"></p-dropdown>
     </div>
-    <div class="col-md-6">
-      <h3>Stops</h3>
-      <p-dropdown class="dropdown" id="tSelectStopDropdown" [options]="stopList" [(ngModel)]="selectedStop" [filter]="true" (onChange)="onStopSelected($event)" [style]="{'width':'200px'}" placeholder="Select a Route"></p-dropdown>
+    <div class="col-md-6"  *ngIf="selectedDirection">
+      <h3>3. Stop</h3>
+      <p-dropdown class="dropdown" id="tSelectStopDropdown" [options]="stopList" [(ngModel)]="selectedStop" [filter]="true" (onChange)="onStopSelected($event)" [style]="{'width':'200px'}" placeholder="Select a Stop"></p-dropdown>
     </div>
   </div>
-  <div class="time-container row" id="TTimes">
+  <div class="time-container row"  *ngIf="timeList"  id="TTimes">
     <h3>Bus Times</h3>
     <p-dataTable [value]="timeList" [paginator]="true" [rows]="6" [responsive]="true">
-      <p-column field="DepartureText" header="Departure Time" [sortable]="true"></p-column>
+      <p-column field="DepartureText" header="Departure Time"></p-column>
       <p-column field="Actual" header="Actual" [sortable]="true"></p-column>
       <p-column field="BlockNumber" header="Block Number" [sortable]="true"></p-column>
       <p-column field="Description" header="Description" [sortable]="true"></p-column>

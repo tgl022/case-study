@@ -16,12 +16,16 @@
   </div>
   <div class="time-container row"  *ngIf="timeList"  id="TTimes">
     <h3>Bus Times</h3>
-    <p-dataTable [value]="timeList" [paginator]="true" [rows]="6" [responsive]="true">
+    <p-dataTable [value]="timeList" [paginator]="true" [rows]="6" [responsive]="true" selectionMode="single" [(selection)]="selectedTime" (onRowSelect)="updateMap($event)" ngDefaultControl>
       <p-column field="DepartureText" header="Departure Time"></p-column>
       <p-column field="Actual" header="Actual" [sortable]="true"></p-column>
       <p-column field="BlockNumber" header="Block Number" [sortable]="true"></p-column>
       <p-column field="Description" header="Description" [sortable]="true"></p-column>
 
     </p-dataTable>
+
+  <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
   </div>
 </div>

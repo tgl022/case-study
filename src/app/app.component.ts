@@ -18,6 +18,15 @@ export class AppComponent implements OnInit {
   public selectedDirection: SelectItem;
   public selectedStop: SelectItem;
 
+  public selectedLat: number;
+  public selectedLong: number;
+
+  public selectedTime: any;
+
+
+  public lat: number = 51.678418;
+  public lng: number = 7.809007;
+
   constructor(public metroService: MetroService)
   {
   }
@@ -70,10 +79,22 @@ export class AppComponent implements OnInit {
     this.metroService.getTimes(routeValue, directionValue, stopValue)
       .then(times => {
         this.timeList = times;
-
-        console.log(this.timeList);
     });
+
   }
+
+  public updateMap($event: any): void {
+    let newLat = this.selectedTime.VehicleLatitude;
+    let newLng = this.selectedTime.VehicleLongitude;
+
+    this.lat = (newLat == 0) ? this.lat : newLat;
+    this.lng = (newLng == 0) ? this.lng : newLng;
+  }
+
+  public onSelectedTime($event: any): void {
+    console.log($event.value);
+  }
+
 
   public onRouteSelected($event: any): void {
     this.updateDirections(this.selectedRoute);

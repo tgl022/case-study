@@ -1,70 +1,93 @@
-import {Component} from '@angular/core';
-import {Car} from './cars/car';
-import {CarService} from './cars/carservice';
-
-class PrimeCar implements Car {
-    constructor(public vin?, public year?, public brand?, public color?) {}
-}
+import {Component, OnInit} from '@angular/core';
+import { SelectItem } from 'primeng/components/common/api';
+import { MetroService } from './services/metro.service';
 
 @Component({
 	templateUrl: 'app.component.html',
+  styleUrls:[ 'app.component.css'],
 	selector: 'my-app'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-	displayDialog: boolean;
+  public routeList: SelectItem[];
+  public directionList: SelectItem[];
+  public stopList: SelectItem[];
+  public timeList: any[];
 
-    car: Car = new PrimeCar();
+  public selectedRoute: SelectItem;
+  public selectedDirection: SelectItem;
+  public selectedStop: SelectItem;
 
-    selectedCar: Car;
+  constructor(public metroService: MetroService)
+  {
+  }
 
-    newCar: boolean;
 
-    cars: Car[];
+  public updateRoutes(): void {
+    let routesDataList: any[] = [];
+    this.routeList = [];
+    // this.selectedRoute = null;
 
-    constructor(private carService: CarService) { }
+    this.metroService.getRoutes()
+      .then(routes => {
+        routesDataList = JSON.parse(JSON.stringify(routes));
+        routesDataList.forEach(route => {
+          this.routeList.push({label: route.Description, value: route.Route});
+        });
+    });
+  }
 
-    ngOnInit() {
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
-    }
+  public updateDirections(routeValue: any): void {
+    let directionDataList: any[] = [];
+    this.directionList = [];
 
-    showDialogToAdd() {
-        this.newCar = true;
-        this.car = new PrimeCar();
-        this.displayDialog = true;
-    }
+    this.metroService.getDirections(routeValue)
+      .then(directions => {
+        directionDataList = JSON.parse(JSON.stringify(directions));
+        directionDataList.forEach(direction => {
+          this.directionList.push({label: direction.Text, value: direction.Value});
+        });
+    });
+  }
 
-    save() {
-        if(this.newCar)
-            this.cars.push(this.car);
-        else
-            this.cars[this.findSelectedCarIndex()] = this.car;
+  public updateStops(routeValue: any, directionValue: any): void {
+    let stopsDataList: any[] = [];
+    this.stopList = [];
 
-        this.car = null;
-        this.displayDialog = false;
-    }
+    this.metroService.getStops(routeValue, directionValue)
+      .then(stops => {
+        stopsDataList = JSON.parse(JSON.stringify(stops));
+        stopsDataList.forEach(stop => {
+          this.stopList.push({label: stop.Text, value: stop.Value});
+        });
+    });
+  }
 
-    delete() {
-        this.cars.splice(this.findSelectedCarIndex(), 1);
-        this.car = null;
-        this.displayDialog = false;
-    }
+  public updateTimes(routeValue: any, directionValue: any, stopValue: any): void {
+    let timesDateList: any[] = [];
+    this.timeList = [];
 
-    onRowSelect(event) {
-        this.newCar = false;
-        this.car = this.cloneCar(event.data);
-        this.displayDialog = true;
-    }
+    this.metroService.getTimes(routeValue, directionValue, stopValue)
+      .then(times => {
+        this.timeList = times;
 
-    cloneCar(c: Car): Car {
-        let car = new PrimeCar();
-        for(let prop in c) {
-            car[prop] = c[prop];
-        }
-        return car;
-    }
+        console.log(this.timeList);
+    });
+  }
 
-    findSelectedCarIndex(): number {
-        return this.cars.indexOf(this.selectedCar);
-    }
+  public onRouteSelected($event: any): void {
+    this.updateDirections(this.selectedRoute);
+  }
+
+  public onDirectionSelected($event: any): void {
+    this.updateStops(this.selectedRoute, this.selectedDirection);
+  }
+
+  public onStopSelected($event: any): void {
+    this.updateTimes(this.selectedRoute,this.selectedDirection, this.selectedStop);
+  }
+
+  ngOnInit() {
+    this.updateRoutes();
+  }
 }

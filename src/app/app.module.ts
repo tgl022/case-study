@@ -5,13 +5,28 @@ import {BrowserModule} from '@angular/platform-browser';
 import 'rxjs/add/operator/toPromise';
 
 import {AppComponent}  from './app.component';
-import {CarService} from './cars/carservice';
-import {InputTextModule,DataTableModule,ButtonModule,DialogModule} from 'primeng/primeng';
+import { ApiService } from './services/api.service';
+import { MetroService } from './services/metro.service';
+import { DataTableModule, DropdownModule, SharedModule } from 'primeng/primeng';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports:      [BrowserModule,FormsModule,HttpModule,InputTextModule,DataTableModule,ButtonModule,DialogModule],
-  declarations: [AppComponent],
-  bootstrap:    [AppComponent],
-  providers:    [CarService]
+  imports:[
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    DataTableModule,
+    SharedModule,
+    DropdownModule,
+    BrowserAnimationsModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    ApiService,
+    MetroService
+  ]
 })
 export class AppModule { }

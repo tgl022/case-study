@@ -1,5 +1,6 @@
 # Metro Bus Tracker
-url here
+### App URL
+https://aqueous-dusk-31187.herokuapp.com/
 
 ### Mini Demo GIF
 http://i.imgur.com/sjkN22q.gifv

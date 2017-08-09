@@ -23,7 +23,7 @@ describe('AppComponent', () => {
     imports: [ FormsModule, DropdownModule, DataTableModule,
       SharedModule, HttpModule,BrowserAnimationsModule,
       AgmCoreModule.forRoot({
-        apiKey: environment.API_KEY
+        apiKey: process.env.API_KEY
       })
     ]
   })

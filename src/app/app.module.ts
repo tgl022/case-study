@@ -24,7 +24,7 @@ import { environment } from '../environments/environment';
     DropdownModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.API_KEY
+      apiKey: process.env.API_KEY
     })
   ],
   declarations: [

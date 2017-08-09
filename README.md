@@ -3,7 +3,7 @@
 https://aqueous-dusk-31187.herokuapp.com/
 
 ### Mini Demo GIF
-http://i.imgur.com/sjkN22q.gifv
+http://i.imgur.com/38ZoD8X.gifv
 
 #  App Information
 I used angular-cli-primeng as a starter for this build and then upgraded it to angular 4. Check out the original repo here:
